@@ -4,18 +4,6 @@ import pickle
 from langchain_mistralai.chat_models import ChatMistralAI
 from langchain.schema import HumanMessage, AIMessage
 
-# ------------------------------
-# CACHING HELPERS
-# ------------------------------
-@st.cache_resource
-def setup_llm():
-    return ChatMistralAI(
-        api_key="lHcwga2vJ6yyjV470WdMIFn5hRgtMbcc",
-        model="mistral-large-latest",
-        temperature=0.7
-    )
-
-@st.cache_resource
 def load_models():
     with open("svm_mental_health.pkl", "rb") as f:
         svm_model = pickle.load(f)
@@ -23,9 +11,7 @@ def load_models():
         rf_model = pickle.load(f)
     return svm_model, rf_model
 
-# ------------------------------
-# SESSION STATE INITIALIZATION
-# ------------------------------
+
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "prediction_result" not in st.session_state:
@@ -33,15 +19,9 @@ if "prediction_result" not in st.session_state:
 if "show_chatbot" not in st.session_state:
     st.session_state.show_chatbot = False
 
-# ------------------------------
-# PAGE CONFIGURATION
-# ------------------------------
 st.set_page_config(page_title="Mental Health Assistant", layout="wide")
 st.title("🧠 Mental Health Detection & Support Assistant")
 
-# ------------------------------
-# SIDEBAR INPUTS
-# ------------------------------
 st.sidebar.header("User Input Features")
 
 age = st.sidebar.slider("Age", 18, 65, 30)
@@ -243,4 +223,5 @@ How can I assist you today?"""
 
 # Footer
 st.markdown("---")
+
 st.markdown("⚠️ **Disclaimer:** This tool is for informational purposes only and not a substitute for professional mental health care. If you're in crisis, please contact a mental health professional or emergency services immediately.")
