@@ -78,8 +78,8 @@ if svm_model is not None:
     available_models.append("SVM")
 if rf_model is not None:
     available_models.append("Random Forest")
-if ann_model is not None:
-    available_models.append("ANN (Neural Network)")
+#if ann_model is not None:
+    #available_models.append("ANN (Neural #Network)")
 
 if not available_models:
     st.error("No models are available. Please check your model files.")
